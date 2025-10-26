@@ -43,7 +43,7 @@ function Events() {
 
   // Fetch events
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    fetch("https://inventum-so2u.onrender.com")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.error("Error fetching events:", err));
@@ -72,7 +72,7 @@ function Events() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:5000/api/register", {
+    fetch("https://inventum-so2u.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event: selectedEvent, ...formData }),
