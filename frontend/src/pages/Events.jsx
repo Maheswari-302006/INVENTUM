@@ -43,7 +43,7 @@ function Events() {
 
   // Fetch events
   useEffect(() => {
-    fetch("https://inventum-so2u.onrender.com")
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.error("Error fetching events:", err));
@@ -72,7 +72,7 @@ function Events() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://inventum-so2u.onrender.com", {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event: selectedEvent, ...formData }),
