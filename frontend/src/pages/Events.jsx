@@ -1,6 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "./Events.css";
 
+// Import all event images
+import codingImg from "../assets/images/events/codingcontest.jpg";
+import danceImg from "../assets/images/events/dance.jpg";
+import quizImg from "../assets/images/events/quizcompetition.jpg";
+import artImg from "../assets/images/events/artattack.jpg";
+import photographyImg from "../assets/images/events/photography.jpg";
+import treasureImg from "../assets/images/events/treasurehunt.jpg";
+import singingImg from "../assets/images/events/singing.jpg";
+import dramaImg from "../assets/images/events/dramaskit.jpg";
+import questImg from "../assets/images/events/codequest.jpg";
+import challengeImg from "../assets/images/events/codingchallenge.jpg";
+import roboraceImg from "../assets/images/events/roborace.jpg";
+// Map event names to images
+const imageMap = {
+  "Coding Contest": codingImg,
+  "Dance Competition": danceImg,
+  "Quiz Competition": quizImg,
+  "Art Contest": artImg,
+  "Photography Challenge": photographyImg,
+  "Treasure Hunt": treasureImg,
+  "Singing Competition": singingImg,
+  "Drama Skit": dramaImg,
+  "Coding Quest":questImg,
+  "Coding Challenge":challengeImg,
+
+  "Robo Race":roboraceImg,
+
+};
+
 function Events() {
   const [events, setEvents] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -14,8 +43,7 @@ function Events() {
 
   // Fetch events
   useEffect(() => {
-    fetch("/api/events")
-
+    fetch("http://localhost:5000/api/events")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.error("Error fetching events:", err));
@@ -44,7 +72,7 @@ function Events() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("/api/register", {
+    fetch("http://localhost:5000/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event: selectedEvent, ...formData }),
@@ -62,10 +90,13 @@ function Events() {
       <h2>Our Events</h2>
       <div className="events-container">
         {events.length > 0 ? (
-          events.map((e, i) => (
-            <div key={i} className="event-card">
-              <img src={require(`../assets/images/events/${e.image}`)} alt={e.name} className="event-img" />
-
+          events.map((e) => (
+            <div key={e._id} className="event-card">
+              <img
+                src={imageMap[e.name]}
+                alt={e.name}
+                className="event-img"
+              />
               <h3>{e.name}</h3>
               <p>{e.description}</p>
               <p><b>Date:</b> {e.date}</p>
