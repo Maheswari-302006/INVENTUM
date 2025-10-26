@@ -13,7 +13,7 @@ app.use(
   express.json()
 );
 const corsOptions = {
-  origin: ["https://inventumfinalfest.vercel.app/"], // replace with your actual deployed frontend URL
+  origin: ["https://inventumfinalfest.vercel.app"], // replace with your actual deployed frontend URL
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
 };
