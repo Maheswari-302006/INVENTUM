@@ -9,15 +9,18 @@ const app = express();
 app.use(express.json());
 
 // ✅ CORS setup (allow frontend)
+app.use(
+  express.json()
+);
 const corsOptions = {
-  origin: ["http://localhost:5173"], // your frontend URL
+  origin: ["https://inventumfinalfest.vercel.app/"], // replace with your actual deployed frontend URL
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
 };
 app.use(cors(corsOptions));
 
 // ✅ MongoDB connection (local only)
-const mongoURI = "mongodb://localhost:27017/inventumFest";
+const mongoURI = process.env.MONGO_URI;
 
 mongoose
   .connect(mongoURI)
@@ -90,5 +93,5 @@ app.get("/", (req, res) => {
 });
 
 // ✅ Start the server
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Backend running on port ${PORT}`));
